@@ -1,0 +1,17 @@
+<component name="libraryTable">
+  <library name="Maven: com.dlsc.formsfx:formsfx-core:11.3.2">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/dlsc/formsfx/formsfx-core/11.3.2/formsfx-core-11.3.2.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/com/dlsc/formsfx/formsfx-core/11.3.2/formsfx-core-11.3.2-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/dlsc/formsfx/formsfx-core/11.3.2/formsfx-core-11.3.2-sources.jar!/" />
+      <root url="file://$USER_HOME$/Downloads/controlsfx-11.1.2/controlsfx-11.1.2/controlsfx-samples/src/main/java" />
+      <root url="file://$USER_HOME$/Downloads/controlsfx-11.1.2/controlsfx-11.1.2/controlsfx/src/main/java" />
+      <root url="file://$USER_HOME$/Downloads/controlsfx-11.1.2/controlsfx-11.1.2/controlsfx/src/test/java" />
+      <root url="file://$USER_HOME$/Downloads/controlsfx-11.1.2/controlsfx-11.1.2/fxsampler/src/main/java" />
+    </SOURCES>
+  </library>
+</component>
