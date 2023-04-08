@@ -1,34 +1,45 @@
 package com.example.igo.model;
 
-public class User {
-    private String emailId;
+import java.util.Date;
+
+public class User extends Role {
+    private int userId;
+    private String email;
     private String firstName;
     private String lastName;
     private String password;
     private int tickets;
+    private Date dob;
+    private String address;
 
     public User(){
-        this.emailId = null;
+        this.userId = 0;
+        this.email = null;
         this.firstName = null;
         this.lastName = null;
         this.password = null;
         this.tickets = 0;
+        this.dob = null;
+        this.address = null;
     }
 
-    public User(String emailId, String firstName, String lastName, String password, int tickets) {
-        this.emailId = emailId;
+    public User(int userId, String email, String firstName, String lastName, String password, int tickets, Date dob, String address) {
+        this.userId = userId;
+        this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
         this.password = password;
         this.tickets = tickets;
+        this.dob = dob;
+        this.address = address;
     }
 
-    public String getEmailId() {
-        return emailId;
+    public String getEmail() {
+        return email;
     }
 
-    public void setEmailId(String emailId) {
-        this.emailId = emailId;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getFirstName() {
@@ -61,5 +72,29 @@ public class User {
 
     public void setTickets(int tickets) {
         this.tickets = tickets;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    public Date getDob() {
+        return dob;
+    }
+
+    public void setDob(Date dob) {
+        this.dob = dob;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 }
