@@ -26,6 +26,7 @@ public class iGo extends Application {
     }
 
     public static void main(String[] args) {
+        //Connection conn = DriverManager.getConnection("jdbc:sqlite:com/example/igo/db/iGoData.db");
         launch();
     }
 }

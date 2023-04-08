@@ -2,11 +2,6 @@
   <library name="java">
     <CLASSES />
     <JAVADOC />
-    <SOURCES>
-      <root url="file://$USER_HOME$/Downloads/controlsfx-11.1.2/controlsfx-11.1.2/controlsfx-samples/src/main/java" />
-      <root url="file://$USER_HOME$/Downloads/controlsfx-11.1.2/controlsfx-11.1.2/controlsfx/src/main/java" />
-      <root url="file://$USER_HOME$/Downloads/controlsfx-11.1.2/controlsfx-11.1.2/controlsfx/src/test/java" />
-      <root url="file://$USER_HOME$/Downloads/controlsfx-11.1.2/controlsfx-11.1.2/fxsampler/src/main/java" />
-    </SOURCES>
+    <SOURCES />
   </library>
 </component>

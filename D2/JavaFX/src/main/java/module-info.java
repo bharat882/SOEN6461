@@ -13,4 +13,6 @@ module com.example.igo {
 
     opens com.example.igo to javafx.fxml;
     exports com.example.igo;
+    exports com.example.igo.model;
+    opens com.example.igo.model to javafx.fxml;
 }

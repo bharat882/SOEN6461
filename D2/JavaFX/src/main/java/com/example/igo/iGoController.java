@@ -1,5 +1,6 @@
 package com.example.igo;
 
+import com.example.igo.model.SqliteJDBC;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -178,12 +179,14 @@ public class iGoController {
         //LOGIC FOR VIEW TRANSACTION HISTORY BUTTON ON USER HOMEPAGE
 
         System.out.println("LOGIC FOR VIEW TRANSACTION HISTORY BUTTON ON USER HOMEPAGE");
+        SqliteJDBC.testSelect();
         // TODO: implement logic for viewing transaction history
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("View Transaction History");
         alert.setHeaderText(null);
         alert.setContentText("This button will show the transaction history.");
         alert.showAndWait();
+
 
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("viewTransactionHistory.fxml"));
