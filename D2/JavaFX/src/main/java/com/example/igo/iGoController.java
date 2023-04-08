@@ -1,7 +1,6 @@
 package com.example.igo;
 
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -37,6 +36,133 @@ public class iGoController {
     private TextField Signup_TextField4;
 
     @FXML
+    void onSelectRouteButtonClick(ActionEvent event)
+    {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("selectRoute.fxml"));
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    @FXML
+    protected void onCancelButtonClick(ActionEvent event)
+    {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("homepage.fxml"));
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    @FXML
+    protected void onCancelButton1Click(ActionEvent event)
+    {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("AdminHomePage.fxml"));
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML protected void onManageRoutesButtonClick(ActionEvent event){
+        // TODO: implement logic for Managing Routes
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("manageRoutes.fxml"));
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML protected void onManageStationsButtonClick(ActionEvent event){
+        // TODO: implement logic for Managing Stations
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("manageStations.fxml"));
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML protected void onManageFareButtonClick(ActionEvent event){
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("manageFare.fxml"));
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML protected void onManageDatabaseButtonClick(){
+        // TODO: implement logic for Managing Fare
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Manage Database");
+        alert.setHeaderText(null);
+        alert.setContentText("This button will be used to Manage Database");
+        alert.showAndWait();
+    }
+
+    @FXML protected void onLogoutButtonClick(ActionEvent event) throws IOException{
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("login.fxml"));
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    protected void onViewUsersButtonClick(ActionEvent event){
+        //LOGIC FOR VIEW USERS BUTTON ON ADMIN HOME PAGE
+        System.out.println("LOGIC FOR VIEW USERS BUTTON ON ADMIN HOME PAGE");
+        // TODO: implement logic for Viewing Users
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("viewUsers.fxml"));
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
     protected void onSignUpCancelButtonClick(ActionEvent event) throws IOException {
         //LOGIC FOR CANCEL BUTTON ON SIGN UP PAGE
         FXMLLoader loader = new FXMLLoader(getClass().getResource("login.fxml"));
@@ -48,18 +174,47 @@ public class iGoController {
     }
 
     @FXML
-    protected  void onViewTransactionHistoryButtonClick(){
+    protected  void onViewTransactionHistoryButtonClick(ActionEvent event){
         //LOGIC FOR VIEW TRANSACTION HISTORY BUTTON ON USER HOMEPAGE
 
         System.out.println("LOGIC FOR VIEW TRANSACTION HISTORY BUTTON ON USER HOMEPAGE");
+        // TODO: implement logic for viewing transaction history
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("View Transaction History");
+        alert.setHeaderText(null);
+        alert.setContentText("This button will show the transaction history.");
+        alert.showAndWait();
+
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("viewTransactionHistory.fxml"));
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 
     @FXML
-    protected void onViewAvailableTicketsButtonClick(){
+    protected void onViewAvailableTicketsButtonClick(ActionEvent event){
 
         // LOGIC FOR VIEW AVAILABLE TICKET BUTTON IN HOMEPAGE
-        System.out.println("View Available Tickets");
+    //    System.out.println("View Available Tickets");
+
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("viewAvailableTickets.fxml"));
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
 
     }
 
@@ -85,6 +240,7 @@ public class iGoController {
             e.printStackTrace();
         }
     }
+
     @FXML
     protected void onRegisterButtonClick(ActionEvent event) {
         String firstname = Signup_TextField1.getText();
@@ -156,6 +312,20 @@ public class iGoController {
                 System.out.println("login successful");
                 try {
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("homepage.fxml"));
+                    Parent root = loader.load();
+                    Scene scene = new Scene(root);
+                    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                    stage.setScene(scene);
+                    stage.show();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            else if(username.equals("b") && password.equals("b"))
+            {
+                System.out.println("login successful");
+                try {
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("AdminHomePage.fxml"));
                     Parent root = loader.load();
                     Scene scene = new Scene(root);
                     Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();

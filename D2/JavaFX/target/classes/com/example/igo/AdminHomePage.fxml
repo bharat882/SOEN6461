@@ -18,10 +18,11 @@
 
 
     <HBox alignment="CENTER" spacing="20.0">
-        <Button text="View Available Tickets" onAction="#onViewAvailableTicketsButtonClick"/>
-        <Button text="Request Trip Info" onAction="#onRequestTripInfoButtonClick"/>
-        <Button text="View Transaction History" onAction="#onViewTransactionHistoryButtonClick"/>
-        <Button text="Select Route" onAction="#onSelectRouteButtonClick"/>
+        <Button text="View Users" onAction="#onViewUsersButtonClick"/>
+        <Button text="Manage Routes" onAction="#onManageRoutesButtonClick"/>
+        <Button text="Manage Stations" onAction="#onManageStationsButtonClick"/>
+        <Button text="Manage Fare" onAction="#onManageFareButtonClick"/>
+        <Button text="Manage Database" onAction="#onManageDatabaseButtonClick"/>
         <Button text="Logout" onAction="#onLogoutButtonClick"/>
     </HBox>
 
