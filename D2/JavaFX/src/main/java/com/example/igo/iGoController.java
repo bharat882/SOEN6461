@@ -35,10 +35,42 @@ public class iGoController {
 
     @FXML
     private TextField Signup_TextField4;
+
     @FXML
-    protected void onHelloButtonClick() {
-        welcomeText.setText("Welcome to JavaFX Application!");
+    protected void onSignUpCancelButtonClick(ActionEvent event) throws IOException {
+        //LOGIC FOR CANCEL BUTTON ON SIGN UP PAGE
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("login.fxml"));
+        Parent root = loader.load();
+        Scene scene = new Scene(root);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
     }
+
+    @FXML
+    protected  void onViewTransactionHistoryButtonClick(){
+        //LOGIC FOR VIEW TRANSACTION HISTORY BUTTON ON USER HOMEPAGE
+
+        System.out.println("LOGIC FOR VIEW TRANSACTION HISTORY BUTTON ON USER HOMEPAGE");
+    }
+
+
+    @FXML
+    protected void onViewAvailableTicketsButtonClick(){
+
+        // LOGIC FOR VIEW AVAILABLE TICKET BUTTON IN HOMEPAGE
+        System.out.println("View Available Tickets");
+
+    }
+
+    @FXML
+    protected void onRequestTripInfoButtonClick(){
+
+        // LOGIC FOR Select Route BUTTON IN HOMEPAGE
+        System.out.println("Select Route");
+
+    }
+
     @FXML
     protected void onCreateNewAccountButtonClick(ActionEvent event) {
        System.out.println("Sign Up");
@@ -96,8 +128,6 @@ public class iGoController {
 
     }
 
-
-
     @FXML
     protected void onSignInButtonClick(ActionEvent event) {
         String username = loginLabel2.getText();
@@ -122,7 +152,7 @@ public class iGoController {
         else {
             // Validate Login
             System.out.println("Username: " + username + ", Password: " + password);
-            if(username.equals("Alpha") && password.equals("Alpha")) {
+            if(username.equals("a") && password.equals("a")) {
                 System.out.println("login successful");
                 try {
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("homepage.fxml"));
