@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class SqliteJDBC {
@@ -40,34 +41,36 @@ public class SqliteJDBC {
 
     }
 
-    public static void viewTransactions(String userID) {
+    public static ArrayList<Transactions> viewTransactions(int userId) {
+        ArrayList<Transactions> transactionsList = new ArrayList<>();
         Connection c = null;
         Statement stmt = null;
         try {
             Class.forName("org.sqlite.JDBC");
             c = DriverManager.getConnection("jdbc:sqlite:src/main/resources/com/example/igo/db/iGoData.db");
             c.setAutoCommit(false);
-            //System.out.println("Opened database successfully");
 
             stmt = c.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM COMPANY;");
+            ResultSet rs = stmt.executeQuery("SELECT * FROM transactions where userId="+ userId +";");
+            while(rs.next()){
+                int id = rs.getInt("userId");
+                int txnid = rs.getInt("transaction_id");
+                double amount = rs.getDouble("amount");
+                Date transactionDate = new SimpleDateFormat("yyyy-MM-dd").parse(rs.getString("transaction_date"));
+                String paymentMode = rs.getString("payment_mode");
 
-            if (!rs.next()) {
-                System.out.println("No data");
-            } else {
-                System.out.println(rs.getString("NAME"));
-                System.out.println(rs.getString("ADDRESS"));
-
+                transactionsList.add(new Transactions(txnid, id, amount, transactionDate, paymentMode));
             }
+
             rs.close();
             stmt.close();
             c.close();
 
-            System.out.println("Operation done successfully");
-
         } catch (Exception e) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
             System.exit(0);
+        }finally {
+            return transactionsList;
         }
 
     }

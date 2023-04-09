@@ -1,6 +1,7 @@
 package com.example.igo;
 
 import com.example.igo.model.SqliteJDBC;
+import com.example.igo.model.Transactions;
 import com.example.igo.model.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -14,6 +15,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class iGoController {
     @FXML
@@ -36,6 +38,9 @@ public class iGoController {
 
     @FXML
     private TextField Signup_TextField4;
+
+    private static User user;
+    private static ArrayList<Transactions> transactionsArrayList;
 
     @FXML
     void onSelectRouteButtonClick(ActionEvent event)
@@ -178,10 +183,13 @@ public class iGoController {
     @FXML
     protected  void onViewTransactionHistoryButtonClick(ActionEvent event){
         //LOGIC FOR VIEW TRANSACTION HISTORY BUTTON ON USER HOMEPAGE
+        
+        transactionsArrayList = SqliteJDBC.viewTransactions(user.getUserId());
 
-        System.out.println("LOGIC FOR VIEW TRANSACTION HISTORY BUTTON ON USER HOMEPAGE");
-        SqliteJDBC.testSelect();
-        // TODO: implement logic for viewing transaction history
+        for(Transactions t: transactionsArrayList){
+            System.out.println(t.toString());
+        }
+        // TODO: implement logic for displaying transaction history - transactionsArrayList
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("View Transaction History");
         alert.setHeaderText(null);
@@ -312,7 +320,7 @@ public class iGoController {
         else {
             // Validate Login
             System.out.println("Username: " + username + ", Password: " + password);
-            User user = SqliteJDBC.authenticateUser(username, password);
+            user = SqliteJDBC.authenticateUser(username, password);
             if(user!=null){
                 System.out.println("login successful");
                 try {

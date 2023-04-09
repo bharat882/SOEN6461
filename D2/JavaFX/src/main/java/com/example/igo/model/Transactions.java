@@ -1,54 +1,78 @@
 package com.example.igo.model;
 
+import java.util.Date;
+
 public class Transactions {
-    private String userId;
-    private String id;
-    private float amount;
-    private String date;
+    private int transactionId;
+    private int userId;
+    private double amount;
+    private Date transactionDate;
+    private String paymentMode;
 
     Transactions(){
-        this.userId = null;
-        this.id = null;
-        this.amount = 0.0f;
-        this.date = null;
+        this.transactionId = 0;
+        this.userId = 0;
+        this.amount = 0.0d;
+        this.transactionDate = null;
+        this.paymentMode = null;
     }
 
-    public Transactions(String userId, String id, float amount, String date) {
+    public Transactions(int transactionId, int userId, double amount, Date transactionDate, String paymentMode) {
+        this.transactionId = transactionId;
         this.userId = userId;
-        this.id = id;
         this.amount = amount;
-        this.date = date;
+        this.transactionDate = transactionDate;
+        this.paymentMode = paymentMode;
     }
 
-    public String getUserId() {
+    public int getTransactionId() {
+        return transactionId;
+    }
+
+    public void setTransactionId(int transactionId) {
+        this.transactionId = transactionId;
+    }
+
+    public int getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(int userId) {
         this.userId = userId;
     }
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public float getAmount() {
+    public double getAmount() {
         return amount;
     }
 
-    public void setAmount(float amount) {
+    public void setAmount(double amount) {
         this.amount = amount;
     }
 
-    public String getDate() {
-        return date;
+    public Date getTransactionDate() {
+        return transactionDate;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setTransactionDate(Date transactionDate) {
+        this.transactionDate = transactionDate;
+    }
+
+    public String getPaymentMode() {
+        return paymentMode;
+    }
+
+    public void setPaymentMode(String paymentMode) {
+        this.paymentMode = paymentMode;
+    }
+
+    @Override
+    public String toString() {
+        return "Transactions{" +
+                "transactionId=" + transactionId +
+                ", userId=" + userId +
+                ", amount=" + amount +
+                ", transactionDate=" + transactionDate +
+                ", paymentMode='" + paymentMode + '\'' +
+                '}';
     }
 }
