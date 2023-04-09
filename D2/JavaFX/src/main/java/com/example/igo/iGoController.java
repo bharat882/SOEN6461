@@ -1,6 +1,7 @@
 package com.example.igo;
 
 import com.example.igo.model.SqliteJDBC;
+import com.example.igo.model.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -311,7 +312,30 @@ public class iGoController {
         else {
             // Validate Login
             System.out.println("Username: " + username + ", Password: " + password);
-            if(username.equals("a") && password.equals("a")) {
+            User user = SqliteJDBC.authenticateUser(username, password);
+            if(user!=null){
+                System.out.println("login successful");
+                try {
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("homepage.fxml"));
+                    Parent root = loader.load();
+                    Scene scene = new Scene(root);
+                    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                    stage.setScene(scene);
+                    stage.show();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            }
+            else{
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText(null);
+                alert.setContentText("Login Unsuccessful");
+
+                alert.showAndWait();
+            }
+            /*if(username.equals("a") && password.equals("a")) {
                 System.out.println("login successful");
                 try {
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("homepage.fxml"));
@@ -346,7 +370,7 @@ public class iGoController {
                 alert.setContentText("Login Unsuccessful");
 
                 alert.showAndWait();
-            }
+            } */
         }
     }
 }
