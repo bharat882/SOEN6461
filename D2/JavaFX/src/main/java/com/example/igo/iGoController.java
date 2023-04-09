@@ -1,6 +1,7 @@
 package com.example.igo;
 
 import com.example.igo.model.SqliteJDBC;
+import com.example.igo.model.Ticket;
 import com.example.igo.model.Transactions;
 import com.example.igo.model.User;
 import javafx.event.ActionEvent;
@@ -41,6 +42,7 @@ public class iGoController {
 
     private static User user;
     private static ArrayList<Transactions> transactionsArrayList;
+    private static ArrayList<Ticket> ticketArrayList;
 
     @FXML
     void onSelectRouteButtonClick(ActionEvent event)
@@ -183,7 +185,7 @@ public class iGoController {
     @FXML
     protected  void onViewTransactionHistoryButtonClick(ActionEvent event){
         //LOGIC FOR VIEW TRANSACTION HISTORY BUTTON ON USER HOMEPAGE
-        
+
         transactionsArrayList = SqliteJDBC.viewTransactions(user.getUserId());
 
         for(Transactions t: transactionsArrayList){
@@ -215,6 +217,11 @@ public class iGoController {
 
         // LOGIC FOR VIEW AVAILABLE TICKET BUTTON IN HOMEPAGE
     //    System.out.println("View Available Tickets");
+        ticketArrayList = SqliteJDBC.viewAvailableTickets(user.getUserId());
+        for(Ticket t: ticketArrayList){
+            System.out.println(t.toString());
+        }
+        // TODO: Add GUI To display tickets
 
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("viewAvailableTickets.fxml"));

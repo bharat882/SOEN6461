@@ -113,4 +113,38 @@ public class SqliteJDBC {
             return u;
         }
     }
+
+    public static ArrayList<Ticket> viewAvailableTickets(int userId) {
+        ArrayList<Ticket> ticketList = new ArrayList<>();
+        Connection c = null;
+        Statement stmt = null;
+        try {
+            Class.forName("org.sqlite.JDBC");
+            c = DriverManager.getConnection("jdbc:sqlite:src/main/resources/com/example/igo/db/iGoData.db");
+            c.setAutoCommit(false);
+
+            stmt = c.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * FROM tickets where ticket_customer_id="+ userId +";");
+            while(rs.next()){
+                int t_id = rs.getInt("ticket_id");
+                int t_cust_id = rs.getInt("ticket_customer_id");
+                Date t_date = new SimpleDateFormat("yyyy-MM-dd").parse(rs.getString("ticket_date"));
+                String t_type = rs.getString("ticket_type");
+                String t_desc = rs.getString("ticket_desc");
+
+                ticketList.add(new Ticket(t_id, t_date, t_desc, t_type, t_cust_id));
+            }
+
+            rs.close();
+            stmt.close();
+            c.close();
+
+        } catch (Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            System.exit(0);
+        }finally {
+            return ticketList;
+        }
+
+    }
 }
