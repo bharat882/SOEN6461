@@ -1,9 +1,6 @@
 package com.example.igo.model;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -179,6 +176,51 @@ public class SqliteJDBC {
         }finally {
             return fareList;
         }
+    }
 
+    public static boolean processTicket(int userId, Fare fare, String paymentType){
+
+        Connection conn = null;
+        Statement stmt = null;
+        PreparedStatement pre_stmt = null;
+
+        try {
+            Class.forName("org.sqlite.JDBC");
+            conn = DriverManager.getConnection("jdbc:sqlite:src/main/resources/com/example/igo/db/iGoData.db");
+            String query = "INSERT INTO tickets (ticket_date, ticket_desc, ticket_type, ticket_customer_id) VALUES (DATE('now'), ?, ?, ?)";
+            pre_stmt = conn.prepareStatement(query);
+            pre_stmt.setString(2, fare.getFareDescription());
+            pre_stmt.setString(3, fare.getFareTitle());
+            pre_stmt.setInt(4, userId);
+
+            pre_stmt.executeUpdate();
+            pre_stmt.close();
+            conn.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+
+        pre_stmt = null;
+        try {
+            Class.forName("org.sqlite.JDBC");
+            conn = DriverManager.getConnection("jdbc:sqlite:src/main/resources/com/example/igo/db/iGoData.db");
+            String query = "INSERT INTO transactions (userId, amount, transaction_date, payment_mode) VALUES (?, ?, DATE('now'), ?)";
+            pre_stmt = conn.prepareStatement(query);
+
+            pre_stmt.setInt(1, userId);
+            pre_stmt.setDouble(2, fare.getFareAmount());
+            pre_stmt.setString(4, paymentType);
+
+            pre_stmt.executeUpdate();
+            pre_stmt.close();
+            conn.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
     }
 }

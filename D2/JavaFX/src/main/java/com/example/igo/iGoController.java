@@ -246,6 +246,10 @@ public class iGoController {
         }
         // TODO: Add gui to select one of the fare/ticket returned by the above method.
 
+        // This function will take the fare object returned by the gui (the one selected by the user), userid, and payment mode mentioned by the user
+        // Replace new Fare() with Fare object, and payment type to string of payment type selected by user
+        // method with return true if the process was successfully completed, else false
+        //boolean payment = SqliteJDBC.processTicket(user.getUserId(), new Fare(), "Somepayment type");
     }
 
     @FXML

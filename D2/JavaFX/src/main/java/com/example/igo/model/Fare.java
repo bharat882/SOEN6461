@@ -7,7 +7,7 @@ public class Fare {
     private String fareDescription;
     private String fareType;
 
-    Fare(){
+    public Fare(){
         this.fareId = 0;
         this.fareAmount = 0.0d;
         this.fareTitle = null;
