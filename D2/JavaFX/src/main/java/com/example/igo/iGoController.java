@@ -1,9 +1,6 @@
 package com.example.igo;
 
-import com.example.igo.model.SqliteJDBC;
-import com.example.igo.model.Ticket;
-import com.example.igo.model.Transactions;
-import com.example.igo.model.User;
+import com.example.igo.model.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -43,6 +40,7 @@ public class iGoController {
     private static User user;
     private static ArrayList<Transactions> transactionsArrayList;
     private static ArrayList<Ticket> ticketArrayList;
+    private static ArrayList<Fare> fareArrayList;
 
     @FXML
     void onSelectRouteButtonClick(ActionEvent event)
@@ -242,6 +240,11 @@ public class iGoController {
 
         // LOGIC FOR Select Route BUTTON IN HOMEPAGE
         System.out.println("Select Route");
+        fareArrayList = SqliteJDBC.showAvailableFares(user.getUserId());
+        for(Fare f: fareArrayList){
+            System.out.println(f.toString());
+        }
+        // TODO: Add gui to select one of the fare/ticket returned by the above method.
 
     }
 

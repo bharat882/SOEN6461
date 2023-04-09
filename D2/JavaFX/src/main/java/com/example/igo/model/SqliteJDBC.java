@@ -147,4 +147,38 @@ public class SqliteJDBC {
         }
 
     }
+
+    public static ArrayList<Fare> showAvailableFares(int userId){
+        ArrayList<Fare> fareList = new ArrayList<>();
+        Connection c = null;
+        Statement stmt = null;
+        try {
+            Class.forName("org.sqlite.JDBC");
+            c = DriverManager.getConnection("jdbc:sqlite:src/main/resources/com/example/igo/db/iGoData.db");
+            c.setAutoCommit(false);
+
+            stmt = c.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * FROM fares;");
+            while(rs.next()){
+                int f_id = rs.getInt("fare_id");
+                double f_amt = rs.getDouble("fare_amount");
+                String f_title = rs.getString("fare_title");
+                String f_desc = rs.getString("fare_desc");
+                String f_type = rs.getString("fare_type");
+
+                fareList.add(new Fare(f_id, f_amt, f_title, f_desc, f_type));
+            }
+
+            rs.close();
+            stmt.close();
+            c.close();
+
+        } catch (Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            System.exit(0);
+        }finally {
+            return fareList;
+        }
+
+    }
 }
