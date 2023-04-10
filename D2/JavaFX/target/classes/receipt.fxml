@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<VBox prefWidth="400" prefHeight="600" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+
+    <HBox alignment="CENTER" spacing="10">
+        <Label text="iGo" style="-fx-font-size: 28pt; -fx-font-weight: bold;"/>
+        <Label text="Receipt" style="-fx-font-size: 24pt; -fx-font-weight: bold;"/>
+    </HBox>
+
+    <Separator/>
+
+    <VBox spacing="10" alignment="CENTER_LEFT">
+        <HBox spacing="10">
+            <Label text="Ticket Type:" style="-fx-font-size: 16pt;"/>
+            <Label text="Single Ride" style="-fx-font-size: 16pt; -fx-font-weight: bold;"/>
+        </HBox>
+        <HBox spacing="10">
+            <Label text="Fare Type:" style="-fx-font-size: 16pt;"/>
+            <Label text="Adult" style="-fx-font-size: 16pt; -fx-font-weight: bold;"/>
+        </HBox>
+        <HBox spacing="10">
+            <Label text="Amount Paid:" style="-fx-font-size: 16pt;"/>
+            <Label text="2.50" style="-fx-font-size: 16pt; -fx-font-weight: bold;"/>
+        </HBox>
+        <HBox spacing="10">
+            <Label text="Transaction Date:" style="-fx-font-size: 16pt;"/>
+            <Label text="April 10, 2023" style="-fx-font-size: 16pt; -fx-font-weight: bold;"/>
+        </HBox>
+    </VBox>
+
+    <Separator/>
+
+    <HBox alignment="CENTER" spacing="10">
+        <Label text="Thank you for choosing iGo!" style="-fx-font-size: 20pt; -fx-font-weight: bold;"/>
+<!--        <ImageView fitHeight="40" fitWidth="40" preserveRatio="true">-->
+<!--            <image>-->
+<!--                <Image url="@../images/logo.png"/>-->
+<!--            </image>-->
+<!--        </ImageView>-->
+    </HBox>
+
+</VBox>

@@ -1,6 +1,10 @@
 package com.example.igo;
 
 import com.example.igo.model.*;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -10,12 +14,16 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Objects;
@@ -29,9 +37,9 @@ public class iGoController {
     @FXML
     private Label welcomeText;
     @FXML
-    private TextField loginLabel2;
+    private TextField usernameField;
     @FXML
-    private TextField loginLabel3;
+    private TextField passwordField;
     @FXML
     private TextField Signup_TextField1;
     @FXML
@@ -187,27 +195,50 @@ public class iGoController {
 
         transactionsArrayList = SqliteJDBC.viewTransactions(user.getUserId());
 
-        for (Transactions t : transactionsArrayList) {
-            System.out.println(t.toString());
-        }
         // TODO: implement logic for displaying transaction history - transactionsArrayList
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("View Transaction History");
-        alert.setHeaderText(null);
-        alert.setContentText("This button will show the transaction history.");
-        alert.showAndWait();
+        TableView<Transactions> tableView = new TableView();
+        TableColumn<Transactions, String> firstColumnName = new TableColumn<>("Transaction date");
+        firstColumnName.setCellValueFactory(new PropertyValueFactory<>("transactionDate"));
+
+        TableColumn<Transactions, String> secondColumnName = new TableColumn<>("Amount($)");
+        secondColumnName.setCellValueFactory(new PropertyValueFactory<>("amount"));
+
+        TableColumn<Transactions, String> thirdColumnName = new TableColumn<>("Payment method");
+        thirdColumnName.setCellValueFactory(new PropertyValueFactory<>("paymentMode"));
+
+        tableView.getColumns().addAll(firstColumnName, secondColumnName, thirdColumnName);
+
+        ObservableList<Transactions> transactionsData = FXCollections.observableArrayList(transactionsArrayList);
+        tableView.setItems(transactionsData);
+        // Create the buttons
+        Button cancelButton = new Button("Cancel");
+        cancelButton.setOnAction(e -> onCancelButtonClick(e));
+
+        Button logoutButton = new Button("Logout");
+        logoutButton.setOnAction(e -> {
+            try {
+                onLogoutButtonClick(e);
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+        });
+
+        HBox buttonHBox = new HBox(cancelButton, logoutButton);
+        buttonHBox.setAlignment(Pos.CENTER);
+        buttonHBox.setSpacing(20);
+
+        VBox root = new VBox(tableView, buttonHBox);
+        root.setSpacing(20);
+        root.setPrefWidth(600);
+        root.setPrefHeight(400);
+        root.setAlignment(Pos.CENTER);
+        root.setPadding(new Insets(20));
 
 
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("viewTransactionHistory.fxml"));
-            Parent root = loader.load();
-            Scene scene = new Scene(root);
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.setScene(scene);
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        Scene scene = new Scene(root);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
     }
 
 
@@ -217,21 +248,62 @@ public class iGoController {
         // LOGIC FOR VIEW AVAILABLE TICKET BUTTON IN HOMEPAGE
         //    System.out.println("View Available Tickets");
         ticketArrayList = SqliteJDBC.viewAvailableTickets(user.getUserId());
-        for (Ticket t : ticketArrayList) {
-            System.out.println(t.toString());
-        }
         // TODO: Add GUI To display tickets
 
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("viewAvailableTickets.fxml"));
-            Parent root = loader.load();
-            Scene scene = new Scene(root);
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.setScene(scene);
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        TableView<Ticket> tableView = new TableView();
+        TableColumn<Ticket, String> firstColumnName = new TableColumn<>("Ticket type");
+        firstColumnName.setCellValueFactory(new PropertyValueFactory<>("ticketType"));
+
+        TableColumn<Ticket, String> secondColumnName = new TableColumn<>("Ticket description");
+        secondColumnName.setCellValueFactory(new PropertyValueFactory<>("description"));
+
+        TableColumn<Ticket, String> thirdColumnName = new TableColumn<>("Purchase date");
+        thirdColumnName.setCellValueFactory(new PropertyValueFactory<>("ticketDate"));
+
+        tableView.getColumns().addAll(firstColumnName, secondColumnName, thirdColumnName);
+
+        ObservableList<Ticket> ticketData = FXCollections.observableArrayList(ticketArrayList);
+        tableView.setItems(ticketData);
+        // Create the buttons
+        Button cancelButton = new Button("Cancel");
+        cancelButton.setOnAction(e -> onCancelButtonClick(e));
+
+        Button logoutButton = new Button("Logout");
+        logoutButton.setOnAction(e -> {
+            try {
+                onLogoutButtonClick(e);
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+        });
+
+        HBox buttonHBox = new HBox(cancelButton, logoutButton);
+        buttonHBox.setAlignment(Pos.CENTER);
+        buttonHBox.setSpacing(20);
+
+        VBox root = new VBox(tableView, buttonHBox);
+        root.setSpacing(30);
+        root.setPrefWidth(800);
+        root.setPrefHeight(600);
+        root.setAlignment(Pos.CENTER);
+        root.setPadding(new Insets(20));
+
+
+        Scene scene = new Scene(root);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
+
+//        try {
+//            FXMLLoader loader = new FXMLLoader(getClass().getResource("viewAvailableTickets.fxml"));
+//            Parent root = loader.load();
+//            Scene scene = new Scene(root);
+//            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+//            stage.setScene(scene);
+//            stage.show();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
 
 
     }
@@ -244,7 +316,6 @@ public class iGoController {
         Set<String> fareTypesSet = new HashSet<>();
         Set<String> ticketTypesSet = new HashSet<>();
         for (Fare f : fareArrayList) {
-            System.out.println(f.toString());
             fareTypesSet.add(f.getFareType());
             ticketTypesSet.add(f.getFareTitle());
         }
@@ -257,11 +328,9 @@ public class iGoController {
         //boolean payment = SqliteJDBC.processTicket(user.getUserId(), new Fare(), "Somepayment type");
         Fare newFare = new Fare();
         Label titleLabel = new Label("iGo");
-        titleLabel.setStyle("-fx-font-size: 48pt; -fx-font-weight: bold;");
-        Label fareTypeLabel = new Label("Select Ticket type");
+        titleLabel.setStyle("-fx-font-size: 36px; -fx-font-weight: bold;");
 
         Button amountButton = new Button("Get Amount");
-        Label amountLabel = new Label("0");
 
         // Create the combo boxes
         ComboBox<String> fareTypesComboBox = new ComboBox<>();
@@ -270,14 +339,13 @@ public class iGoController {
             fareTypesComboBox.getItems().add(fType);
         }
 
-
         ComboBox<String> ticketTypesComboBox = new ComboBox<>();
         ticketTypesComboBox.setPromptText("Select a ticket type");
         for (String tType : ticketTypesSet) {
             ticketTypesComboBox.getItems().add(tType);
         }
 
-
+        Label amountLabel = new Label("$0.00");
         amountButton.setOnAction(e -> {
             System.out.println("Inside get amount");
             String selectedFareType = fareTypesComboBox.getValue();
@@ -286,7 +354,7 @@ public class iGoController {
             newFare.setFareTitle(selectedTicketType);
             for (Fare f : fareArrayList) {
                 if (Objects.equals(f.getFareType(), selectedFareType) && Objects.equals(f.getFareTitle(), selectedTicketType)) {
-                    amountLabel.setText(String.valueOf(f.getFareAmount()));
+                    amountLabel.setText("$" + f.getFareAmount());
                     newFare.setFareAmount(f.getFareAmount());
                     newFare.setFareDescription(f.getFareDescription());
                     newFare.setFareId(f.getFareId());
@@ -297,38 +365,36 @@ public class iGoController {
         ComboBox<String> paymentTypesComboBox = new ComboBox<>();
         paymentTypesComboBox.setPromptText("Select a payment method");
         paymentTypesComboBox.getItems().addAll("Pay by card", "Pay with cash");
-        Button paymentButton = new Button("Pay");
+        Button paymentButton = new Button("Simulate Payment");
         paymentButton.setOnAction(e -> {
-            if(paymentTypesComboBox.getValue().equals("Pay by card")){
-                Stage popupStage = new Stage();
-                popupStage.initModality(Modality.APPLICATION_MODAL); // Set modality to block input to other windows
-                popupStage.setTitle("Popup Window");
-
-                // Create the content for the popup
-                VBox popupContent = new VBox();
-                Label popupLabel = new Label("Please use pin pad to complete the transaction");
-                Button closeButton = new Button("Close");
-                closeButton.setOnAction(e1 -> {
-                    popupStage.close();
-                    System.out.println(user.getUserId() + " " + newFare.toString());
-                    boolean payment = SqliteJDBC.processTicket(user.getUserId(), newFare, "Visa");
-                    if(payment){
-                        System.out.println("Successful");
-                    }
-                    else{
-                        System.out.println("Unsuccessful");
-                    }
-                });
-                popupContent.getChildren().addAll(popupLabel, closeButton);
-                popupContent.setAlignment(Pos.CENTER);
-
-                // Set the scene for the popup stage
-                Scene popupScene = new Scene(popupContent, 300, 200);
-                popupStage.setScene(popupScene);
-
-                // Show the popup stage
-                popupStage.showAndWait();
+            boolean payment = SqliteJDBC.processTicket(user.getUserId(), newFare, "Visa");
+            if(payment){
+                Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(3), e1 -> {
+                    showReceiptPopUp(newFare, paymentTypesComboBox);
+                }));
+                timeline.play();
             }
+            else{
+                System.out.println("Unsuccessful");
+                Label errorLabel = new Label("Payment was unsuccessful. Please try again.");
+                Button closeButton = new Button("Close");
+                VBox errorLayout = new VBox(errorLabel, closeButton);
+                Scene errorScene = new Scene(errorLayout, 400, 200);
+
+                // create a new stage to display the error message
+                Stage errorStage = new Stage();
+                errorStage.setScene(errorScene);
+                errorStage.setTitle("Payment Error");
+
+                // set the close button action to close the error stage and return to the payment screen
+                closeButton.setOnAction(event1 -> {
+                    errorStage.close();
+                });
+
+                // display the error stage
+                errorStage.show();
+            }
+
         });
 
 
@@ -345,39 +411,120 @@ public class iGoController {
             }
         });
 
-        // Create the HBoxes
-        HBox topHBox = new HBox(titleLabel);
-        topHBox.setAlignment(Pos.CENTER);
+        HBox fareTypeBox = new HBox(10);
+        fareTypeBox.setAlignment(Pos.CENTER);
+        fareTypeBox.setPadding(new Insets(10));
+        Label fareTypeLabel = new Label("Fare Type:");
+        fareTypeBox.getChildren().addAll(fareTypeLabel, fareTypesComboBox);
 
-        HBox fareTypeHBox = new HBox(fareTypesComboBox, ticketTypesComboBox);
-        fareTypeHBox.setAlignment(Pos.CENTER);
-        fareTypeHBox.setSpacing(20);
+        HBox ticketTypeBox  = new HBox(10);
+        fareTypeBox.setAlignment(Pos.CENTER);
+        fareTypeBox.setPadding(new Insets(10));
+        Label ticketTypeLabel  = new Label("Ticket Type:");
+        fareTypeBox.getChildren().addAll(ticketTypeLabel, ticketTypesComboBox);
 
-        HBox amountHBox = new HBox(amountButton, amountLabel);
-        amountHBox.setAlignment(Pos.CENTER);
-        amountHBox.setSpacing(20);
+        HBox getAmountBox = new HBox(10);
+        getAmountBox.setAlignment(Pos.CENTER);
+        getAmountBox.setPadding(new Insets(10));
+        amountLabel.setStyle("-fx-font-size: 24px; -fx-font-weight: bold;");
+        getAmountBox.getChildren().addAll(amountButton, amountLabel);
 
-        HBox paymentBox = new HBox(paymentTypesComboBox, paymentButton);
-        paymentBox.setAlignment(Pos.CENTER);
-        paymentBox.setSpacing(20);
+        HBox paymentTypeBox = new HBox(10);
+        paymentTypeBox.setAlignment(Pos.CENTER);
+        paymentTypeBox.setPadding(new Insets(10));
+        Label paymentTypeLabel = new Label("Payment Type:");
+        paymentTypeBox.getChildren().addAll(paymentTypeLabel, paymentTypesComboBox, paymentButton);
 
         HBox buttonHBox = new HBox(cancelButton, logoutButton);
         buttonHBox.setAlignment(Pos.CENTER);
         buttonHBox.setSpacing(20);
 
         // Create the VBox
-        VBox root = new VBox(topHBox, fareTypeLabel, fareTypeHBox, amountHBox, paymentBox, buttonHBox);
-        root.setSpacing(30);
-        root.setPrefWidth(800);
-        root.setPrefHeight(600);
-        root.setAlignment(Pos.CENTER);
-        root.setPadding(new Insets(20));
+
+        VBox vbox = new VBox(20);
+        vbox.setAlignment(Pos.CENTER);
+        vbox.setSpacing(20);
+        vbox.setPadding(new Insets(20));
+        vbox.getChildren().addAll(titleLabel, ticketTypeBox, fareTypeBox, getAmountBox, paymentTypeBox, buttonHBox);
+//        VBox root = new VBox(ticketSelectionBox, amountBox, paymentBox, buttonHBox);
+//        root.setSpacing(30);
+//        root.setPrefWidth(800);
+//        root.setPrefHeight(600);
+//        root.setAlignment(Pos.CENTER);
+//        root.setPadding(new Insets(20));
 
 
-        Scene scene = new Scene(root);
+        Scene scene = new Scene(vbox, 800, 600);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);
         stage.show();
+    }
+
+    public void showReceiptPopUp(Fare newFare, ComboBox paymentTypesComboBox) {
+        System.out.println("Successful");
+        Stage popupStage = new Stage();
+        popupStage.initModality(Modality.APPLICATION_MODAL); // Set modality to block input to other windows
+        popupStage.setTitle("Transaction complete");
+
+        GridPane grid = new GridPane();
+        grid.setAlignment(Pos.CENTER);
+        grid.setHgap(10);
+        grid.setVgap(10);
+        grid.setPadding(new Insets(25, 25, 25, 25));
+
+        Label receiptLabel = new Label("Receipt");
+        receiptLabel.setStyle("-fx-font-size: 24px; -fx-font-weight: bold;");
+        grid.add(receiptLabel, 0, 0, 2, 1);
+
+        Label ticketTypeLabel = new Label("Ticket Type:");
+        grid.add(ticketTypeLabel, 0, 1);
+
+        Label ticketTypeValueLabel = new Label(newFare.getFareTitle());
+        grid.add(ticketTypeValueLabel, 1, 1);
+
+        Label fareTypeLabel = new Label("Fare Type:");
+        grid.add(fareTypeLabel, 0, 2);
+
+        Label fareTypeValueLabel = new Label(newFare.getFareType());
+        grid.add(fareTypeValueLabel, 1, 2);
+
+        Label aLabel = new Label("Amount:");
+        grid.add(aLabel, 0, 3);
+
+        Label amountValueLabel = new Label("$" + newFare.getFareAmount());
+        amountValueLabel.setStyle("-fx-font-weight: bold;");
+        grid.add(amountValueLabel, 1, 3);
+
+        Label paymentTypeLabel = new Label("Payment Type:");
+        grid.add(paymentTypeLabel, 0, 4);
+
+        if (paymentTypesComboBox.getValue().equals("Pay by card")){
+            Label paymentTypeValueLabel = new Label("Credit card");
+            grid.add(paymentTypeValueLabel, 1, 4);
+        }
+        else {
+            Label paymentTypeValueLabel = new Label("Cash");
+            grid.add(paymentTypeValueLabel, 1, 4);
+        }
+        // Create the content for the popup
+        VBox popupContent = new VBox();
+        Label popupLabel = new Label("Please use pin pad to complete the transaction");
+        Button closeButton = new Button("Close");
+        closeButton.setOnAction(e1 -> {
+            Stage stage = (Stage) ((Node) e1.getSource()).getScene().getWindow();
+            stage.close();
+            onCancelButtonClick(e1);
+
+        });
+        popupContent.getChildren().addAll(grid, closeButton);
+        popupContent.setAlignment(Pos.CENTER);
+
+        // Set the scene for the popup stage
+        Scene popupScene = new Scene(popupContent, 400, 400);
+        popupStage.setScene(popupScene);
+
+        // Show the popup stage
+        popupStage.show();
     }
 
     @FXML
@@ -436,8 +583,8 @@ public class iGoController {
 
     @FXML
     protected void onSignInButtonClick(ActionEvent event) {
-        String username = loginLabel2.getText();
-        String password = loginLabel3.getText();
+        String username = usernameField.getText();
+        String password = passwordField.getText();
 
         if (username.isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
