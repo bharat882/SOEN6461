@@ -189,9 +189,9 @@ public class SqliteJDBC {
             conn = DriverManager.getConnection("jdbc:sqlite:src/main/resources/com/example/igo/db/iGoData.db");
             String query = "INSERT INTO tickets (ticket_date, ticket_desc, ticket_type, ticket_customer_id) VALUES (DATE('now'), ?, ?, ?)";
             pre_stmt = conn.prepareStatement(query);
-            pre_stmt.setString(2, fare.getFareDescription());
-            pre_stmt.setString(3, fare.getFareTitle());
-            pre_stmt.setInt(4, userId);
+            pre_stmt.setString(1, fare.getFareDescription());
+            pre_stmt.setString(2, fare.getFareTitle());
+            pre_stmt.setInt(3, userId);
 
             pre_stmt.executeUpdate();
             pre_stmt.close();
@@ -211,7 +211,7 @@ public class SqliteJDBC {
 
             pre_stmt.setInt(1, userId);
             pre_stmt.setDouble(2, fare.getFareAmount());
-            pre_stmt.setString(4, paymentType);
+            pre_stmt.setString(3, paymentType);
 
             pre_stmt.executeUpdate();
             pre_stmt.close();

@@ -3,6 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.control.Button?>
@@ -16,7 +17,12 @@
 
     <Label text="iGo" style="-fx-font-size: 48pt; -fx-font-weight: bold;" />
 
-    <Label text="Select Route"></Label>
+    <Label text="Select Ticket type"></Label>
+    <HBox alignment="CENTER" spacing="20.0">
+        <ComboBox fx:id="fareTypesComboBox" promptText="Select a fare type" />
+        <ComboBox fx:id="ticketTypesComboBox" promptText="Select a ticket type" />
+        <Label fx:id="amount" text="0"></Label>
+    </HBox>
     <HBox alignment="CENTER" spacing="20.0">
         <Button text="Cancel" onAction="#onCancelButtonClick"/>
         <Button text="Logout" onAction="#onLogoutButtonClick"/>

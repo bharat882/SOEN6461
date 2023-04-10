@@ -19,9 +19,8 @@
 
     <HBox alignment="CENTER" spacing="20.0">
         <Button text="View Available Tickets" onAction="#onViewAvailableTicketsButtonClick"/>
-        <Button text="Request Trip Info" onAction="#onRequestTripInfoButtonClick"/>
+        <Button text="Buy tickets" onAction="#onRequestTripInfoButtonClick"/>
         <Button text="View Transaction History" onAction="#onViewTransactionHistoryButtonClick"/>
-        <Button text="Select Route" onAction="#onSelectRouteButtonClick"/>
         <Button text="Logout" onAction="#onLogoutButtonClick"/>
     </HBox>
 
