@@ -2,19 +2,19 @@ package com.example.igo.model;
 
 public class Role {
     private int roleId;
-    private String title;
-    private String description;
+    private String roleTitle;
+    private String roleDescription;
 
     Role(){
         this.roleId = 0;
-        this.title = null;
-        this.description = null;
+        this.roleTitle = null;
+        this.roleDescription = null;
     }
 
-    public Role(int roleId, String title, String description) {
+    public Role(int roleId, String roleTitle, String roleDescription) {
         this.roleId = roleId;
-        this.title = title;
-        this.description = description;
+        this.roleTitle = roleTitle;
+        this.roleDescription = roleDescription;
     }
 
     public int getRoleId() {
@@ -25,19 +25,19 @@ public class Role {
         this.roleId = roleId;
     }
 
-    public String getTitle() {
-        return title;
+    public String getRoleTitle() {
+        return roleTitle;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setRoleTitle(String roleTitle) {
+        this.roleTitle = roleTitle;
     }
 
-    public String getDescription() {
-        return description;
+    public String getRoleDescription() {
+        return roleDescription;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setRoleDescription(String roleDescription) {
+        this.roleDescription = roleDescription;
     }
 }

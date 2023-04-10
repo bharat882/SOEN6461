@@ -312,7 +312,7 @@ public class iGoController {
     protected void onRequestTripInfoButtonClick(ActionEvent event) throws Exception {
 
         // LOGIC FOR Select Route BUTTON IN HOMEPAGE
-        fareArrayList = SqliteJDBC.showAvailableFares(user.getUserId());
+        fareArrayList = SqliteJDBC.showAvailableFares(user.getUserId(), user.getRoleTitle());
         Set<String> fareTypesSet = new HashSet<>();
         Set<String> ticketTypesSet = new HashSet<>();
         for (Fare f : fareArrayList) {

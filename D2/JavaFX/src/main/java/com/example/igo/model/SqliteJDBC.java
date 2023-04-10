@@ -6,38 +6,6 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class SqliteJDBC {
-    public static void testSelect() {
-        Connection c = null;
-        Statement stmt = null;
-        try {
-            Class.forName("org.sqlite.JDBC");
-            c = DriverManager.getConnection("jdbc:sqlite:src/main/resources/com/example/igo/db/iGoData.db");
-            c.setAutoCommit(false);
-            System.out.println("Opened database successfully");
-
-            stmt = c.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM COMPANY;");
-
-            if (!rs.next()) {
-                System.out.println("No data");
-            } else {
-                System.out.println(rs.getString("NAME"));
-                System.out.println(rs.getString("ADDRESS"));
-
-            }
-            rs.close();
-            stmt.close();
-            c.close();
-
-            System.out.println("Operation done successfully");
-
-        } catch (Exception e) {
-            System.err.println(e.getClass().getName() + ": " + e.getMessage());
-            System.exit(0);
-        }
-
-    }
-
     public static ArrayList<Transactions> viewTransactions(int userId) {
         ArrayList<Transactions> transactionsList = new ArrayList<>();
         Connection c = null;
@@ -77,6 +45,8 @@ public class SqliteJDBC {
         User u = null;
         Connection conn = null;
         Statement stmt = null;
+        int roleId = 0;
+
         try {
             Class.forName("org.sqlite.JDBC");
             conn = DriverManager.getConnection("jdbc:sqlite:src/main/resources/com/example/igo/db/iGoData.db");
@@ -92,12 +62,27 @@ public class SqliteJDBC {
                 String name = rs.getString("Name");
                 String password = rs.getString("password");
                 Date dob = new SimpleDateFormat("yyyy-MM-dd").parse(rs.getString("dob"));
-                //Date dob = rs.getDate("dob");
                 String address = rs.getString("address");
+                roleId = rs.getInt("role_id");
 
                 u = new User(userId, email, name, password, dob, address);
 
             }
+            rs.close();
+            stmt.close();
+
+            // Get role
+            stmt = conn.createStatement();
+            rs = stmt.executeQuery("SELECT * FROM roles where role_id=" + roleId + ";");
+
+            if(rs.next()){
+                String r_title = rs.getString("role_title");
+                String r_desc = rs.getString("role_description");
+                u.setRoleId(roleId);
+                u.setRoleTitle(r_title);
+                u.setRoleDescription(r_desc);
+            }
+
             rs.close();
             stmt.close();
             conn.close();
@@ -145,7 +130,7 @@ public class SqliteJDBC {
 
     }
 
-    public static ArrayList<Fare> showAvailableFares(int userId){
+    public static ArrayList<Fare> showAvailableFares(int userId, String roleTitle){
         ArrayList<Fare> fareList = new ArrayList<>();
         Connection c = null;
         Statement stmt = null;
@@ -155,7 +140,14 @@ public class SqliteJDBC {
             c.setAutoCommit(false);
 
             stmt = c.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM fares;");
+            ResultSet rs = null;
+            if(roleTitle == null){
+                rs = stmt.executeQuery("SELECT * FROM fares;");
+            }
+            else{
+                rs = stmt.executeQuery("SELECT * FROM fares WHERE fare_type = \'" + roleTitle + "\' ;");
+            }
+
             while(rs.next()){
                 int f_id = rs.getInt("fare_id");
                 double f_amt = rs.getDouble("fare_amount");

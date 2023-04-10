@@ -28,6 +28,16 @@ public class User extends Role {
         this.address = address;
     }
 
+    public User(int roleId, String roleTitle, String roleDescription, int userId, String email, String name, String password, Date dob, String address) {
+        super(roleId, roleTitle, roleDescription);
+        this.userId = userId;
+        this.email = email;
+        this.name = name;
+        this.password = password;
+        this.dob = dob;
+        this.address = address;
+    }
+
     public String getEmail() {
         return email;
     }
