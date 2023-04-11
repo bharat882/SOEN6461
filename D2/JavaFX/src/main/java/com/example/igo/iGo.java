@@ -12,19 +12,21 @@ public class iGo extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(iGo.class.getResource("login.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 320, 240);
+        Scene scene = new Scene(fxmlLoader.load(), 800, 600);
         stage.setTitle("iGo");
         // Load the icon image file
     //    Image icon = new Image(getClass().getResourceAsStream("icon_iGo.png"));
 
         // Set the stage icon to the loaded image
     //    stage.getIcons().add(icon);
+        //
         stage.setScene(scene);
 
         stage.show();
     }
 
     public static void main(String[] args) {
+        //Connection conn = DriverManager.getConnection("jdbc:sqlite:com/example/igo/db/iGoData.db");
         launch();
     }
 }
