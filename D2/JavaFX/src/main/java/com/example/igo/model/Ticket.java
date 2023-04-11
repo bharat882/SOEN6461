@@ -8,6 +8,7 @@ public class Ticket {
     private String description;
     private String ticketType;
     private int customerId;
+    private String validity;
 
     Ticket(){
         this.ticketId = 0;
@@ -15,14 +16,16 @@ public class Ticket {
         this.description = null;
         this.ticketType = null;
         this.customerId = 0;
+        this.validity = null;
     }
 
-    public Ticket(int ticketId, Date ticketDate, String description, String ticketType, int customerId) {
+    public Ticket(int ticketId, Date ticketDate, String description, String ticketType, int customerId, String validity) {
         this.ticketId = ticketId;
         this.ticketDate = ticketDate;
         this.description = description;
         this.ticketType = ticketType;
         this.customerId = customerId;
+        this.validity = validity;
     }
 
     public int getTicketId() {
@@ -63,6 +66,14 @@ public class Ticket {
 
     public void setCustomerId(int customerId) {
         this.customerId = customerId;
+    }
+
+    public String getValidity() {
+        return validity;
+    }
+
+    public void setValidity(String validity) {
+        this.validity = validity;
     }
 
     @Override

@@ -260,7 +260,10 @@ public class iGoController {
         TableColumn<Ticket, String> thirdColumnName = new TableColumn<>("Purchase date");
         thirdColumnName.setCellValueFactory(new PropertyValueFactory<>("ticketDate"));
 
-        tableView.getColumns().addAll(firstColumnName, secondColumnName, thirdColumnName);
+        TableColumn<Ticket, String> forthColumnName = new TableColumn<>("Ticket Validity");
+        forthColumnName.setCellValueFactory(new PropertyValueFactory<>("validity"));
+
+        tableView.getColumns().addAll(firstColumnName, secondColumnName, thirdColumnName, forthColumnName);
 
         ObservableList<Ticket> ticketData = FXCollections.observableArrayList(ticketArrayList);
         tableView.setItems(ticketData);

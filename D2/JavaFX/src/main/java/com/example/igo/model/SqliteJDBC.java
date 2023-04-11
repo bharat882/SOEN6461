@@ -113,8 +113,9 @@ public class SqliteJDBC {
                 Date t_date = new SimpleDateFormat("yyyy-MM-dd").parse(rs.getString("ticket_date"));
                 String t_type = rs.getString("ticket_type");
                 String t_desc = rs.getString("ticket_desc");
+                String t_valid = rs.getString("validity");
 
-                ticketList.add(new Ticket(t_id, t_date, t_desc, t_type, t_cust_id));
+                ticketList.add(new Ticket(t_id, t_date, t_desc, t_type, t_cust_id, t_valid));
             }
 
             rs.close();
@@ -179,11 +180,12 @@ public class SqliteJDBC {
         try {
             Class.forName("org.sqlite.JDBC");
             conn = DriverManager.getConnection("jdbc:sqlite:src/main/resources/com/example/igo/db/iGoData.db");
-            String query = "INSERT INTO tickets (ticket_date, ticket_desc, ticket_type, ticket_customer_id) VALUES (DATE('now'), ?, ?, ?)";
+            String query = "INSERT INTO tickets (ticket_date, ticket_desc, ticket_type, ticket_customer_id, validity) VALUES (DATE('now'), ?, ?, ?, ?)";
             pre_stmt = conn.prepareStatement(query);
             pre_stmt.setString(1, fare.getFareDescription());
             pre_stmt.setString(2, fare.getFareTitle());
             pre_stmt.setInt(3, userId);
+            pre_stmt.setString(4, "valid");
 
             pre_stmt.executeUpdate();
             pre_stmt.close();
